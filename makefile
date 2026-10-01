@@ -6,6 +6,10 @@ SOURCES = sections/01-front.md \
  sections/06-ga.md \
  sections/07-results.md
 
+ifeq ($(CI),true)
+FONT_META = --metadata-file ci.yaml
+endif
+
 all: runpandoc
 
 runpandoc:
@@ -15,4 +19,5 @@ runpandoc:
 	-F pandoc-crossref \
 	-L filters/div-to-env.lua \
 	--citeproc \
-	--metadata-file pdf.yaml
+	--metadata-file pdf.yaml \
+	$(FONT_META)

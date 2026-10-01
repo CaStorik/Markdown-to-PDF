@@ -1,13 +1,30 @@
 \usepackage{fontspec}
 \usepackage{unicode-math}
-\setmathfont{Cambria Math}
+\IfFontExistsTF{Cambria Math}{%
+  \setmathfont{Cambria Math}%
+}{%
+  \IfFontExistsTF{TeX Gyre Termes Math}{%
+    \setmathfont{TeX Gyre Termes Math}%
+  }{%
+    \setmathfont{Latin Modern Math}%
+  }%
+}
 \usepackage{amsmath,amssymb}
 \usepackage{polyglossia}
 \setdefaultlanguage{russian}
 \setotherlanguage{english}
-\newfontfamily\cyrillicfont{Times New Roman}
-\newfontfamily\cyrillicfontsf{Times New Roman}
-\newfontfamily\cyrillicfonttt{Courier New}
+\IfFontExistsTF{Times New Roman}{%
+  \newfontfamily\cyrillicfont{Times New Roman}%
+  \newfontfamily\cyrillicfontsf{Times New Roman}%
+}{%
+  \newfontfamily\cyrillicfont{Liberation Serif}%
+  \newfontfamily\cyrillicfontsf{Liberation Sans}%
+}
+\IfFontExistsTF{Courier New}{%
+  \newfontfamily\cyrillicfonttt{Courier New}%
+}{%
+  \newfontfamily\cyrillicfonttt{Liberation Mono}%
+}
 \usepackage{caption}
 \captionsetup[figure]{justification=centering,font=small,labelfont=normalfont,textfont=normalfont,format=plain,labelsep=period,skip=4pt}
 \captionsetup[table]{justification=centering,font={normalfont},format=plain,labelsep=endash,skip=6pt}

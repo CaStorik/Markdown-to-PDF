@@ -1,0 +1,71 @@
+name: Build PDF
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install TeX Live and fonts
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            make \
+            texlive-xetex \
+            texlive-lang-cyrillic \
+            texlive-latex-extra \
+            texlive-fonts-recommended \
+            texlive-fonts-extra \
+            texlive-science \
+            fonts-liberation \
+            fonts-texgyre
+
+      - name: Install Pandoc
+        env:
+          PANDOC_VERSION: "3.9.0.2"
+        run: |
+          curl -fsSL -o pandoc.deb \
+            "https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-1-amd64.deb"
+          sudo dpkg -i pandoc.deb
+          pandoc --version
+
+      - name: Install pandoc-crossref
+        env:
+          CROSSREF_VERSION: "v0.3.24a"
+        run: |
+          curl -fsSL -o crossref.tar.xz \
+            "https://github.com/lierdakil/pandoc-crossref/releases/download/${CROSSREF_VERSION}/pandoc-crossref-Linux-X64.tar.xz"
+          tar -xf crossref.tar.xz
+          sudo install -m 0755 pandoc-crossref /usr/local/bin/pandoc-crossref
+          pandoc-crossref --version
+
+      - name: Build PDF
+        run: make runpandoc
+
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: result_article
+          path: result_article.pdf
+
+      - name: Publish to GitHub Release
+        if: github.event_name != 'pull_request'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: PDF статьи
+          body: |
+            Автосборка Markdown → PDF.
+            Коммит: ${{ github.sha }}
+          files: result_article.pdf
+          fail_on_unmatched_files: true
+          make_latest: true
