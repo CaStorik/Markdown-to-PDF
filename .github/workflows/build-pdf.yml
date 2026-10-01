@@ -20,7 +20,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
             make \
+            lmodern \
             texlive-xetex \
+            texlive-latex-base \
+            texlive-latex-recommended \
             texlive-lang-cyrillic \
             texlive-latex-extra \
             texlive-fonts-recommended \
