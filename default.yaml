@@ -1,10 +1,20 @@
 metadata:
-  geometry: "margin=2cm"
-  mainfont : "Times New Roman"
-  figureTitle: Рис. 
+  geometry: "a4paper,margin=2cm"
+  mainfont: "Times New Roman"
+  sansfont: "Times New Roman"
+  monofont: "Courier New"
+  fontsize: 12pt
+  linestretch: 1.0
+  indent: true
+  figureTitle: Рис.
   figPrefix: рис.
   tableTitle: Таблица
   tblPrefix: табл.
+  lstPrefix: листинг
+  listingTitle: Листинг
+  eqnPrefix: форм.
   bibliography: bibliography.bib
   link-citations: true
+  colorlinks: false
   csl: gost-r-7-0-5-2008-numeric-iaa.csl
+  reference-section-title: Библиографический список

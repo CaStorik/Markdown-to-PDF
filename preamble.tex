@@ -1,0 +1,81 @@
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\setmathfont{Cambria Math}
+\usepackage{amsmath,amssymb}
+\usepackage{polyglossia}
+\setdefaultlanguage{russian}
+\setotherlanguage{english}
+\newfontfamily\cyrillicfont{Times New Roman}
+\newfontfamily\cyrillicfontsf{Times New Roman}
+\newfontfamily\cyrillicfonttt{Courier New}
+\usepackage{caption}
+\captionsetup[figure]{justification=centering,font=small,labelfont=normalfont,textfont=normalfont,format=plain,labelsep=period,skip=4pt}
+\captionsetup[table]{justification=centering,font={normalfont},format=plain,labelsep=endash,skip=6pt}
+\usepackage{hyperref}
+\usepackage{indentfirst}
+\usepackage{enumitem}
+\usepackage{mdframed}
+\usepackage{etoolbox}
+\usepackage{titlesec}
+\usepackage{float}
+\usepackage{fvextra}
+\pagestyle{empty}
+\setlength{\parindent}{1.25cm}
+\setlength{\parskip}{0pt}
+\setlength{\abovedisplayskip}{6pt plus 2pt minus 2pt}
+\setlength{\belowdisplayskip}{6pt plus 2pt minus 2pt}
+\setlength{\abovedisplayshortskip}{4pt}
+\setlength{\belowdisplayshortskip}{4pt}
+\setlength{\intextsep}{8pt}
+\setlength{\textfloatsep}{8pt}
+\setlength{\abovecaptionskip}{4pt}
+\setlength{\belowcaptionskip}{2pt}
+\frenchspacing
+\titleformat{\section}[block]{\normalsize\bfseries\raggedright}{}{0pt}{}
+\titlespacing*{\section}{0pt}{8pt}{1pt}
+\renewcommand{\labelitemi}{--}
+\setlist{nosep,leftmargin=\parindent,itemindent=0pt,topsep=3pt,partopsep=0pt,parsep=0pt}
+\floatplacement{figure}{H}
+\floatplacement{table}{H}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,breakanywhere,fontsize=\small,commandchars=\\\{\}}
+\newenvironment{udc}{%
+  \par\fontsize{10}{12}\selectfont
+  \setlength{\parindent}{0pt}%
+}{\par\normalsize}
+\newenvironment{papertitle}{%
+  \par\smallskip
+  \begingroup\centering
+  \bfseries\fontsize{13}{15.6}\selectfont
+  \setlength{\parindent}{0pt}%
+  \setlength{\parskip}{0pt}%
+}{\par\endgroup}
+\newenvironment{authors}{%
+  \par\begingroup\centering
+  \bfseries\fontsize{10}{12}\selectfont
+  \setlength{\parindent}{0pt}%
+}{\par\endgroup}
+\newenvironment{affil}{%
+  \par\begingroup\centering
+  \itshape\fontsize{10}{12}\selectfont
+  \setlength{\parindent}{0pt}%
+}{\par\endgroup\smallskip}
+\newenvironment{abstractblock}{%
+  \par
+  \itshape\fontsize{10}{12}\selectfont
+  \setlength{\leftskip}{1.5cm}%
+  \setlength{\rightskip}{1.5cm}%
+  \setlength{\parindent}{0pt}%
+  \setlength{\parskip}{4pt}%
+}{\par\upshape\normalsize}
+\mdfdefinestyle{listingboxstyle}{%
+  linewidth=0.4pt,
+  innerleftmargin=6pt,
+  innerrightmargin=6pt,
+  innertopmargin=4pt,
+  innerbottommargin=4pt,
+  skipabove=8pt,
+  skipbelow=8pt
+}
+\newmdenv[style=listingboxstyle]{listingbox}
+\AtBeginEnvironment{CSLReferences}{\small}
+\AtBeginDocument{\hypersetup{hidelinks}\pagestyle{empty}}

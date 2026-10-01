@@ -1,9 +1,10 @@
-SOURCES = sections/01-intro.md \
- sections/02-git.md \
- sections/03-deps.md \
- sections/04-results.md \
- sections/05-conclusion.md \
- templates/footer.md
+SOURCES = sections/01-front.md \
+ sections/02-intro.md \
+ sections/03-architecture.md \
+ sections/04-bert.md \
+ sections/05-t5.md \
+ sections/06-ga.md \
+ sections/07-results.md
 
 all: runpandoc
 
@@ -12,5 +13,6 @@ runpandoc:
 	--pdf-engine=xelatex \
 	-d default.yaml \
 	-F pandoc-crossref \
+	-L filters/div-to-env.lua \
 	--citeproc \
 	--metadata-file pdf.yaml
