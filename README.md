@@ -16,7 +16,3 @@ make runpandoc
 
 Результат: `result_article.pdf`.
 
-## CI/CD
-
-При пуше в `master` GitHub Actions собирает PDF и кладёт его в [Releases](https://github.com/CaStorik/Markdown-to-PDF/releases) (тег `latest`).
-Можно также запустить workflow вручную: Actions → **Build PDF** → **Run workflow**.

@@ -15,6 +15,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Cache Pandoc and pandoc-crossref
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/md-pdf-tools
+          key: tools-pandoc-3.9.0.2-crossref-0.3.24a
+
       - name: Install TeX Live and fonts
         run: |
           sudo apt-get update
@@ -27,8 +33,6 @@ jobs:
             texlive-lang-cyrillic \
             texlive-latex-extra \
             texlive-fonts-recommended \
-            texlive-fonts-extra \
-            texlive-science \
             fonts-liberation \
             fonts-texgyre
 
@@ -36,18 +40,26 @@ jobs:
         env:
           PANDOC_VERSION: "3.9.0.2"
         run: |
-          curl -fsSL -o pandoc.deb \
-            "https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-1-amd64.deb"
-          sudo dpkg -i pandoc.deb
+          mkdir -p ~/.cache/md-pdf-tools
+          DEB="$HOME/.cache/md-pdf-tools/pandoc-${PANDOC_VERSION}-1-amd64.deb"
+          if [ ! -f "$DEB" ]; then
+            curl -fsSL -o "$DEB" \
+              "https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-1-amd64.deb"
+          fi
+          sudo dpkg -i "$DEB"
           pandoc --version
 
       - name: Install pandoc-crossref
         env:
           CROSSREF_VERSION: "v0.3.24a"
         run: |
-          curl -fsSL -o crossref.tar.xz \
-            "https://github.com/lierdakil/pandoc-crossref/releases/download/${CROSSREF_VERSION}/pandoc-crossref-Linux-X64.tar.xz"
-          tar -xf crossref.tar.xz
+          mkdir -p ~/.cache/md-pdf-tools
+          TXZ="$HOME/.cache/md-pdf-tools/pandoc-crossref-Linux-X64.tar.xz"
+          if [ ! -f "$TXZ" ]; then
+            curl -fsSL -o "$TXZ" \
+              "https://github.com/lierdakil/pandoc-crossref/releases/download/${CROSSREF_VERSION}/pandoc-crossref-Linux-X64.tar.xz"
+          fi
+          tar -xf "$TXZ"
           sudo install -m 0755 pandoc-crossref /usr/local/bin/pandoc-crossref
           pandoc-crossref --version
 
